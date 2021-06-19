@@ -16,7 +16,7 @@ import pandas as pd
 ARENA = [(20, 80, 1), (-4, 4, 1), (-4, 4, 1)]
 
 # Samples collection window
-SAMPLES = 1000
+SAMPLES = 1024
     
 # Select Walabot wlbt.Init()  # load the WalabotSDK to the Python wrapper
 wlbt.Init()
