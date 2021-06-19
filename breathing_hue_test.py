@@ -143,36 +143,11 @@ def breath_loop(stdscr, socket):
     if stdscr is not None:
         stdscr.nodelay(1)
 
-    # Connect to Philips Hue bridge
-    try:
-        hue_bridge = Bridge(HUE_BRIDGE_IP)
-    except PhueRegistrationException:
-        # First time connect
-        print("Press the 'Philips' button on the bridge and press any key")
-
-        if os.name == 'nt':
-            key = ord(getch())
-        else:
-            key = stdscr.getch()
-
-        hue_bridge = Bridge(HUE_BRIDGE_IP)
-
-    hue_bridge.connect()
-    print("Connected to Philips Hue bridge")
-
-    # Make sure lamp is on
-    hue_bridge.set_light(HUE_LAMP, 'on', True)
 
     # Prepare energy log
     energy_log = []
 
-    # Initialize lamp brightness, hue and saturation
     prev_bri = 0
-    hue = 43690
-
-    hue_bridge.set_light(HUE_LAMP, 'bri', 150)
-    # hue_bridge.set_light(HUE_LAMP, 'hue', hue)
-    # hue_bridge.set_light(HUE_LAMP, 'sat', 250)
 
     print("Breath...")
 
