@@ -56,10 +56,6 @@ while True:
     energy_log= []
     last_time = time.time()
     
-    # Take 3 Measurements for running average
-    for i in range(3):
-        wlbt.Trigger()
-        energy = wlbt.GetImageEnergy()
     
     for i in range(samples):
         wlbt.Trigger() 
@@ -71,11 +67,14 @@ while True:
         if len(energy_log) > samples:
             energy_log = energy_log[-samples:]
         # Average last three samples for a smoother response
-        enrg = sum(energy_log[-3:]) / 3
+        enrg = sum(energy_log[-10:]) / 10
         print(i, energy)
         walabot_data.loc[i, 'Data No'] = int(i + 1)
         walabot_data.loc[i, 'Image Energy'] = energy
-        walabot_data.loc[i, 'Last 3 Average'] = enrg
+        if i <= 10:
+            walabot_data.loc[i, 'Last 3 Average'] = energy
+        else:
+            walabot_data.loc[i, 'Last 3 Average'] = enrg
         walabot_data.loc[i, 'Time'] = time.time() - last_time
         last_time = time.time()
     
