@@ -16,7 +16,7 @@ import pandas as pd
 ARENA = [(20, 80, 1), (-4, 4, 1), (-4, 4, 1)]
 
 # Samples collection window
-SAMPLES = 100
+SAMPLES = 1000
     
 # Select Walabot wlbt.Init()  # load the WalabotSDK to the Python wrapper
 wlbt.Init()
@@ -56,6 +56,11 @@ while True:
     energy_log= []
     last_time = time.time()
     
+    # Take 3 Measurements for running average
+    for i in range(3):
+        wlbt.Trigger()
+        energy = wlbt.GetImageEnergy()
+    
     for i in range(samples):
         wlbt.Trigger() 
         energy = wlbt.GetImageEnergy()
@@ -66,11 +71,9 @@ while True:
         if len(energy_log) > samples:
             energy_log = energy_log[-samples:]
         # Average last three samples for a smoother response
-        if samples > 3:
-            enrg = sum(energy_log[-3:]) / 3
-        else:
-            enrg = energy
+        enrg = sum(energy_log[-3:]) / 3
         print(i, energy)
+        walabot_data.loc[i, 'Data No'] = int(i + 1)
         walabot_data.loc[i, 'Image Energy'] = energy
         walabot_data.loc[i, 'Last 3 Average'] = enrg
         walabot_data.loc[i, 'Time'] = time.time() - last_time
