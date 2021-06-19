@@ -4,11 +4,8 @@ Created on Fri Jun 18 16:23:53 2021
 
 @author: david
 """
-import multiprocessing
-import time
-import sys
-import os
-    
+
+import time  
 import WalabotAPI as wlbt
 import pandas as pd
 

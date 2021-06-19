@@ -14,7 +14,7 @@ col_names = ['Data No',
              'Last Average',
              'Time']
 
-walabot_data = pd.read_csv('walabot_regular.csv', names = col_names, skiprows=[0])
+walabot_data = pd.read_csv('walabot.csv', names = col_names, skiprows=[0])
 
 time_series = walabot_data['Last Average']
 
